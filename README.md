@@ -9,7 +9,7 @@ Een interactieve webapplicatie waarmee gebruikers personages en teams uit het St
 - **Personagebeheer:** Voeg nieuwe personages toe, bekijk details en verwijder of wijzig bestaande personages.
 - **Teams:** Creëer en beheer teams van personages.
 - **Responsive design:** Geoptimaliseerd voor zowel desktop- als mobiele apparaten.
-- **State management:** Gebruik van Vuex (of Pinia) voor state management.
+- **State management:** Gebruik van Pinia voor state management.
 - **Routing:** Dynamische pagina’s met Vue Router.
 - **API-integratie:** Verkrijg en verzend data via een op maat gemaakte service met Axios.
 - **Custom UI-componenten:** Herbruikbare componenten zoals knoppen, kaarten, en paginering.
