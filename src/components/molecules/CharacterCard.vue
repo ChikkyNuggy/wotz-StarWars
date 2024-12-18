@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 import type { Character } from '@/types/type'
+import { useRouter } from 'vue-router'
 import { useImagePerspective } from '@/composables/useImagePerspective'
 import SWButton from '@/components/atoms/SWButton.vue'
 
@@ -10,6 +11,7 @@ const props = defineProps<{
   perspective: boolean
 }>()
 const { applyTransform, resetTransform } = useImagePerspective()
+const router = useRouter()
 
 const onMouseMove = (event: MouseEvent) => {
   if (props.perspective) {
@@ -22,12 +24,16 @@ const onMouseLeave = (event: MouseEvent) => {
     resetTransform(event)
   }
 }
+
+const handleViewCharacter = () => {
+  router.push(`/character/${props.character.id}`)
+}
 </script>
 
 <template>
   <div
     class="card-container"
-    @click="$emit('goToDetail', character)"
+    @click="handleViewCharacter"
     @mousemove="onMouseMove"
     @mouseleave="onMouseLeave"
   >
@@ -38,7 +44,7 @@ const onMouseLeave = (event: MouseEvent) => {
       <h2>{{ character.name }}</h2>
       <p>{{ character.species }}</p>
     </div>
-    <SWButton v-if="deletable" @click="$emit('delete', character)">Remove</SWButton>
+    <SWButton v-if="deletable" @click.stop="$emit('delete', character)">Remove</SWButton>
   </div>
 </template>
 
@@ -106,6 +112,7 @@ const onMouseLeave = (event: MouseEvent) => {
     font-weight: 900;
     font-size: 0.8rem;
     transition: background-color 0.3s ease-in-out;
+    z-index: 999;
 
     &:hover {
       background-color: #f86767;

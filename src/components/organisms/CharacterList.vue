@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import type { Character } from '@/types/type'
 import useCharacterStore from '@/stores/character'
 import CharacterCard from '@/components/molecules/CharacterCard.vue'
 import SWPagination from '@/components/molecules/SWPagination.vue'
 
 const characterStore = useCharacterStore()
-const router = useRouter()
 
 const currentPage = ref(1)
 const itemsPerPage = ref(12)
@@ -22,10 +19,6 @@ const totalPages = computed(() => {
   return Math.ceil(characterStore.characters.length / itemsPerPage.value)
 })
 
-const handleViewCharacter = (character: Character) => {
-  router.push(`/character/${character.id}`)
-}
-
 const goToPage = (page: number) => {
   if (page >= 1 && page <= totalPages.value) {
     currentPage.value = page
@@ -38,12 +31,7 @@ const goToPage = (page: number) => {
   <div class="container">
     <ul>
       <li v-for="character in paginatedCharacters" :key="character.id">
-        <CharacterCard
-          :character="character"
-          :deletable="false"
-          :perspective="true"
-          @go-to-detail="handleViewCharacter"
-        />
+        <CharacterCard :character="character" :deletable="false" :perspective="true" />
       </li>
     </ul>
     <SWPagination
