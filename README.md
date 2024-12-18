@@ -75,4 +75,4 @@ Dit project maakt gebruik van de volgende technologieën en tools:
 Heb je vragen of suggesties? Neem contact op:
 
 - **Naam:** Henri Van Puyvelde
-- **GitHub:** [\[Link naar je GitHub-profiel\]](https://github.com/ChikkyNuggy) ✨🌌🌟
+- **GitHub:** [\[GitHub-profiel\]](https://github.com/ChikkyNuggy) ✨🌌🌟
