@@ -2,30 +2,49 @@
 import { defineProps } from 'vue'
 import type { Character } from '@/types/type'
 import { useImagePerspective } from '@/composables/useImagePerspective'
+import SWButton from '@/components/atoms/SWButton.vue'
 
-defineProps<{ character: Character }>()
+const props = defineProps<{
+  character: Character
+  deletable: boolean
+  perspective: boolean
+}>()
 const { applyTransform, resetTransform } = useImagePerspective()
+
+const onMouseMove = (event: MouseEvent) => {
+  if (props.perspective) {
+    applyTransform(event)
+  }
+}
+
+const onMouseLeave = (event: MouseEvent) => {
+  if (props.perspective) {
+    resetTransform(event)
+  }
+}
 </script>
 
 <template>
   <div
     class="card-container"
     @click="$emit('goToDetail', character)"
-    @mousemove="applyTransform"
-    @mouseleave="resetTransform"
+    @mousemove="onMouseMove"
+    @mouseleave="onMouseLeave"
   >
     <div class="image">
       <img :src="character.image" :alt="character.name" />
     </div>
     <div>
-      <h2>{{ character.selected ? '✅  ' : '' }}{{ character.name }}</h2>
+      <h2>{{ character.name }}</h2>
       <p>{{ character.species }}</p>
     </div>
+    <SWButton v-if="deletable" @click="$emit('delete', character)">Remove</SWButton>
   </div>
 </template>
 
 <style scoped lang="scss">
 .card-container {
+  position: relative;
   padding: 1rem;
   border-radius: 0.5rem;
   text-align: center;
@@ -81,8 +100,16 @@ const { applyTransform, resetTransform } = useImagePerspective()
     opacity: 1;
   }
 
-  &:not(:hover) {
-    z-index: -2;
+  button {
+    margin: 0;
+    background-color: #f8a9a9;
+    font-weight: 900;
+    font-size: 0.8rem;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      background-color: #f86767;
+    }
   }
 }
 </style>

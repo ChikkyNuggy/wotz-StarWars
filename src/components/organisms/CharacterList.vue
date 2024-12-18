@@ -38,7 +38,12 @@ const goToPage = (page: number) => {
   <div class="container">
     <ul>
       <li v-for="character in paginatedCharacters" :key="character.id">
-        <CharacterCard :character="character" @go-to-detail="handleViewCharacter" />
+        <CharacterCard
+          :character="character"
+          :deletable="false"
+          :perspective="true"
+          @go-to-detail="handleViewCharacter"
+        />
       </li>
     </ul>
     <SWPagination

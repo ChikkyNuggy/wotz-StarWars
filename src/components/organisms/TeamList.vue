@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import type { Character } from '@/types/type'
 import CharacterCard from '@/components/molecules/CharacterCard.vue'
 import useCharacterStore from '@/stores/character'
 
 const characterStore = useCharacterStore()
+
+const deleteCharacter = (character: Character) => {
+  characterStore.removeFromTeam(character.id)
+}
 </script>
 
 <template>
@@ -11,6 +16,9 @@ const characterStore = useCharacterStore()
       v-for="character in characterStore.team"
       :key="character.id"
       :character="character"
+      :deletable="true"
+      :perspective="false"
+      @delete="deleteCharacter"
     />
   </ul>
   <p v-show="characterStore.team.length === 0">No team.</p>
